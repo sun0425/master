@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue入门</title>
+    <script src="js/vuejs-2.5.16.js"></script>
+    <style>
+        #div{
+            background-color: red;
+            width:300px;
+            height:300px;
+        }
+        #div1{
+            background-color: red;
+            width:300px;
+            height:300px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>绑定元素显示内容</h1>
+    {{message}}
+    {{text}}
+    {{asd}}
+</div>
+<div id="app1">
+    <h1>绑定点击事件</h1>
+    {{message}}
+    <button v-on:click="fun1('点击后内容')">vue 点击事件</button>
+</div>
+<div id="app2">
+    <h1>绑定键盘按下事件</h1>
+    Vue:<input type="text" v-on:keydown="fun($event)">
+    <hr/>
+</div>
+<div id="app3">
+    <h1>鼠标悬停区域事件</h1>
+<div @mouseover="fun1" id="div">
+    <textarea @mouseover="fun2($event)">这是一个文件域</textarea>
+</div>
+</div>
+
+<div id="app4">
+    <h1>v-on:事件修饰符</h1>
+    <form @submit.prevent action="http://www.itheima.com" method="post" >
+        <input type="submit" value="提交1">
+    </form>
+
+</div>
+<div id="app5">
+    <h1>v-on:按键修饰符</h1>
+    Vue:<input type="text" @keydown.enter="fun1">
+</div>
+<div id="app6" >
+    <h1>v-text与v-html</h1>
+    <div v-text="message1"></div>
+    <div v-html="message1"></div>
+</div>
+<div id="app7">
+    <h1>v-bind的使用</h1>
+    <font size="5" v-bind:color="ys1">前锋教育</font>
+    <font size="5" :color="ys2">java程序员</font>
+</div>
+<div id="app8">
+<h1>v-model(对象)</h1>
+    <from action="" method="post">
+        用户名：<input type="text" name="username" v-model="user.username"><br>
+        密码：<input type="text" name="password" v-model="user.password"><br>
+    </from>
+</div>
+<div id="app9">
+    <h1>v-for遍历数组</h1>
+    <ul>
+        <li v-for="(item,index) in arr">{{item}}={{index}}</li>
+    </ul>
+</div>
+<div id="app10">
+    <h1>v-for遍历对象(对象)</h1>
+    <ul>
+        <li v-for="(key,value) in product">{{key}}==={{value}}</li>
+    </ul>
+</div>
+<div id="app11">
+    <h1>v-for遍历对象(集合)</h1>
+    <table border="1">
+        <tr>
+            <td>序号</td>
+            <td>编号</td>
+            <td>名称</td>
+            <td>价格</td>
+        </tr>
+        <tr v-for="(product,index) in products ">
+            <td>{{index}}</td>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+    </table>
+</div>
+</div>
+<div id="app12">
+    <h1>v-if与v-show</h1>
+    <span v-if="flag">千峰教育</span>
+<!--    <span v-show="flag">千峰</span>-->
+    <button @click="toggle">切换</button>
+</div>
+</body>
+<script>
+    //view model
+    new Vue({
+        el:"#app12",
+        data:{
+            flag:false
+        },
+        methods:{
+            toggle:function(){
+                this.flag = !this.flag;
+            }
+        }
+    })
+    //view model
+    new Vue({
+        el:"#app11",
+        data:{
+            products:[
+                { id:1,name:"笔记本电脑",price:5000 },
+                { id:2,name:"手机",price:3000 },
+                { id:3,name:"电视",price:4000 }
+            ]
+        }
+    })
+    //view model
+    new Vue({
+        el:"#app10",
+        data:{
+            product:{
+                id:1,
+                name:"笔记本电脑",
+                price:5000
+            }
+        }
+    })
+    //view model
+    new Vue({
+        el:"#app9",
+        data:{
+            arr:[1,2,3,4,5]
+        }
+    })
+
+    new Vue({
+       el:'#app8',
+       data:{
+           user:{
+               username:"lisi",
+               password:"123"
+           }
+       }
+    });
+
+
+    //view model
+    //插值表达式不能用于html标签的属性取值
+    //要想给html标签的属性设置变量的值，需要使用v-bind
+    //v-bind也可以简化写法   直接使用:
+    new Vue({
+        el:'#app7',
+        data:{
+            ys1:"red",
+            ys2:"green"
+        }
+    });
+
+    new Vue({
+        el:'#app6',
+        data:{
+            message1:"<h1>hello VUE</h1>"
+        }
+    });
+
+
+new Vue({
+    el:'#app5',
+    methods:{
+        fun1:function () {
+            alert("按下是回车");
+        }
+    }
+});
+
+
+
+
+    //view model
+    new Vue({
+        el:"#app4",
+        methods:{
+            fun1:function(){
+                alert("鼠标悬停在div上了");
+            },
+            fun2:function(event){
+                alert("鼠标悬停在textarea上了");
+            }
+        }
+    });
+
+    //view model
+    /**
+     * @事件名称  就是  v-on:事件名称的简写方式
+     * @mouseover它就等同于v-on:mouseover
+     */
+    new Vue({
+        el:'#app3',
+        methods:{
+            fun1:function() {
+        alert("鼠标悬停在div上了");
+    },
+            fun2:function () {
+                alert("鼠标悬停在textarea上了");
+            event.stopPropagation();
+            }
+        }
+    });
+
+
+
+
+    new Vue({
+        el:'#app2',
+        methods:{
+            fun:function (event) {
+                /* $event 它是vue中的事件对象  和我们传统js的event对象是一样的  */
+                var keyCode=event.keyCode;
+                if (keyCode<48||keyCode>57){
+                    //不让键盘的按键起作用
+                    event.preventDefault();
+                }
+            }
+        }
+    })
+
+
+    new Vue({
+        el:'#app',
+        data:{
+            message:'hello VUE',
+            text:'text内容',
+            asd:'自定义key值及value',
+            number:121212
+        }
+    });
+
+
+    new Vue({
+        el:'#app1',
+        data:{
+            message:'点击前内容'
+        },
+        methods:{
+            fun1:function (msg) {
+                this.message=msg;
+            }
+        }
+    })
+
+</script>
+
+</html>

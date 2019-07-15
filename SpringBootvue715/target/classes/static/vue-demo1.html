@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>入门程序</title>
+</head>
+<script src="js/vuejs-2.5.16.js"></script>
+<body>
+    <div id="app">
+        {{message}}
+        {{text}}
+
+        {{ number * 3.14 }}
+        {{ false ? 'YES' : 'NO' }}
+    </div>
+</body>
+<script >
+    new Vue({
+        el:'#app', //表示当前vue对象接管了div区域
+        data:{
+            message:'hello Vue', //注意不要写分号结尾
+            text:'你好vue',
+            number: 1000
+        }
+    });
+</script>
+</html>

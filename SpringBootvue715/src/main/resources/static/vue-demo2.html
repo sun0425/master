@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on</title>
+    <script src="js/vuejs-2.5.16.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <button v-on:click="fun1('Vue v-on')">vueçš„onclick</button>
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            message:"Hello Vue!"
+        },
+       methods:{
+           fun1:function(msg) {
+                this.message = msg;
+             }
+
+       }
+    })
+</script>
+
+
+</html>
